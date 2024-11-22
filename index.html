@@ -1,37 +1,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<title>QiuYa炫酷3D相册</title>
-<meta name="keywords" content="QiuYa炫酷3D相册,QiuYa的电子相册,QiuYa的动感相册,QiuYa的HTML5相册,QiuYa的CSS3相册" />
-<meta name="description" content="QiuYa的HTML5-3D相册，支持手势（单指滑动旋转角度，双指放大或缩小视图，三指滑动改变轴心）、支持鼠标左键拖动旋转角度、滚轮放大或缩小、按住鼠标右键拖动改变轴心、单击小图预览大图等功能！" />
-<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-<!-- <link rel="stylesheet" href="css/bg.css" media="screen" type="text/css" />
-<link rel="stylesheet" href="css/3d.css" media="screen" type="text/css" />
-<link rel="stylesheet" href="css/lrtk.css" media="screen" type="text/css" /> -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+    <title>QiuYa炫酷3D相册</title>
+    <meta name="keywords" content="QiuYa炫酷3D相册,QiuYa的电子相册,QiuYa的动感相册,QiuYa的HTML5相册,QiuYa的CSS3相册"/>
+    <meta name="description"
+          content="QiuYa的HTML5-3D相册，支持手势（单指滑动旋转角度，双指放大或缩小视图，三指滑动改变轴心）、支持鼠标左键拖动旋转角度、滚轮放大或缩小、按住鼠标右键拖动改变轴心、单击小图预览大图等功能！"/>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon"/>
+    <!-- <link rel="stylesheet" href="css/bg.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="css/3d.css" media="screen" type="text/css" />
+    <link rel="stylesheet" href="css/lrtk.css" media="screen" type="text/css" /> -->
 
     <style>
 
 
         /* 背景容器样式 */
         #background-container {
-            position: fixed;  /* 固定在视窗中 */
+            position: fixed; /* 固定在视窗中 */
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;  /* 使其处于其他内容的下方 */
+            z-index: -1; /* 使其处于其他内容的下方 */
             background-size: cover;
             background-position: center;
             opacity: 1;
         }
+
         /* 示例：设置按钮初始样式 */
         button {
             padding: 10px 20px;
             font-size: 16px;
             margin: 5px;
         }
+
         @keyframes pulse {
             0% {
                 transform: scale(1);
@@ -106,27 +109,72 @@
                 transform: rotate(0deg);
             }
         }
+
         @keyframes glitch {
-            0% { transform: translate(0, 0); opacity: 1; }
-            20% { transform: translate(-2px, -2px); opacity: 0.8; }
-            40% { transform: translate(2px, 2px); opacity: 1; }
-            60% { transform: translate(-2px, 2px); opacity: 0.8; }
-            80% { transform: translate(2px, -2px); opacity: 1; }
-            100% { transform: translate(0, 0); opacity: 1; }
+            0% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
+            20% {
+                transform: translate(-2px, -2px);
+                opacity: 0.8;
+            }
+            40% {
+                transform: translate(2px, 2px);
+                opacity: 1;
+            }
+            60% {
+                transform: translate(-2px, 2px);
+                opacity: 0.8;
+            }
+            80% {
+                transform: translate(2px, -2px);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(0, 0);
+                opacity: 1;
+            }
         }
+
         @keyframes flicker {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.4;
+            }
         }
+
         @keyframes ripple {
-            0% { background-size: 100%; opacity: 1; }
-            50% { background-size: 120%; opacity: 0.5; }
-            100% { background-size: 100%; opacity: 1; }
+            0% {
+                background-size: 100%;
+                opacity: 1;
+            }
+            50% {
+                background-size: 120%;
+                opacity: 0.5;
+            }
+            100% {
+                background-size: 100%;
+                opacity: 1;
+            }
         }
+
         @keyframes hypnotize {
-            0% { transform: rotate(0) scale(1); }
-            50% { transform: rotate(180deg) scale(1.2); }
-            100% { transform: rotate(360deg) scale(1); }
+            0% {
+                transform: rotate(0) scale(1);
+            }
+            50% {
+                transform: rotate(180deg) scale(1.2);
+            }
+            100% {
+                transform: rotate(360deg) scale(1);
+            }
+        }
+
+        .input-width {
+            width: 105px;
         }
     </style>
 
@@ -137,19 +185,63 @@
 <div id="background-container"></div>
 
 
-
-
-
-
 <div id="container">
 
 
 </div>
+
+<img src="./images/imgbox/sys.png" id="sys"
+     style="width: 24px; height: 24px; background: none; border: none; padding: 0; cursor: pointer; position: absolute; right: 10px; top: 10px;"
+     onclick="openModal()" alt=""/>
+
+<!-- 设置弹窗 -->
+<div id="modal"
+     style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.5); justify-content: center; align-items: center;">
+    <div style="background: white; padding: 20px; border-radius: 5px; position: relative;">
+
+
+        <p>自循环模型(无选择时隐藏)</p>
+        <form>
+            <label>
+                <input type="checkbox" id="table_a" value="table"> 单面
+            </label>
+            <label>
+                <input type="checkbox" id="grid_a" value="grid"> 多面
+            </label>
+            <label>
+                <input type="checkbox" id="sphere_a" value="sphere"> 球体
+            </label>
+            <label>
+                <input type="checkbox" id="helix_a" value="helix"> 螺旋
+            </label>
+        </form>
+        <div>
+            <label for="delay">切换时间(毫秒)：</label>
+            <input type="number" id="delay" value="3000" min="1000" step="100" class="input-width"/>
+        </div>
+        <br>
+        <p>更多设置</p>
+        <form>
+            <label>
+                <input type="checkbox" id="displayButton" value="table"> 显示按钮
+            </label>
+
+        </form>
+
+
+        <img src="./images/imgbox/imgbox-close.png"
+             style="width: 24px; height: 24px; position: absolute; right: -10px; top: -10px; cursor: pointer; "
+             onclick="closeModal()" alt=""/>
+    </div>
+</div>
+
+
 <div id="menu">
-<button id="table">单面</button>
-<button id="sphere" class="hover">球体</button>
-<button id="helix">螺旋</button>
-<button id="grid">多面</button>
+    <button id="table">单面</button>
+    <button id="sphere" class="hover">球体</button>
+    <button id="helix">螺旋</button>
+    <button id="grid">多面</button>
+
 </div>
 
 <script type="text/javascript" src="js/jquery.min.js"></script>
@@ -162,7 +254,27 @@
 <script type="text/javascript" src="js/media.js"></script> -->
 <script>
     // 自动切换模式
-    const modes = ["table", "grid"]; // 模式按钮的 ID   "sphere", "helix",
+    let delay = 3000
+    let modes = ["sphere", "helix", "table", "grid"]; // 模式按钮的 ID
+    let intervalId = 0
+    let hideOrShow = "none"
+    function openModal() {
+        document.getElementById('modal').style.display = 'flex';
+        // 设置选择框状态
+        modes.forEach(mode => {
+            console.log("mode:", mode)
+            const checkbox = document.getElementById(mode + "_a");
+            if (checkbox) {
+                checkbox.checked = true; // 将与当前模式相对应的选择框选中
+            }
+        });
+        document.getElementById("delay").value = delay;
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+
     let currentModeIndex = 0;
 
     // 切换到指定模式的函数
@@ -173,28 +285,90 @@
         }
     }
 
-    // 每隔 3 秒切换一次模式
-    setInterval(() => {
-        switchMode(modes[currentModeIndex]);
-        currentModeIndex = (currentModeIndex + 1) % modes.length; // 循环更新索引
-    }, 3000);
+
+    // 监听延迟输入框的变化，实时更新间隔时间
+    document.getElementById("delay").addEventListener("input", startAutoSwitching);
+
+    function startAutoSwitching() {
+        console.log("intervalId:",intervalId)
+        delay = parseInt(document.getElementById("delay").value) || 3000;
+        // 清除已有的定时器，防止重复执行
+        if (intervalId) clearInterval(intervalId);
+
+        // 设置新的 setInterval
+        intervalId = setInterval(() => {
+            console.log("delay",delay)
+            updateModes(modes);
+            if (modes.length > 0) {
+                switchMode(modes[currentModeIndex]);
+                currentModeIndex = (currentModeIndex + 1) % modes.length; // 循环更新索引
+            }
+        }, delay);
+    }
 
     // 页面加载完成后初始化
     document.addEventListener("DOMContentLoaded", () => {
-        switchMode(modes[currentModeIndex]); // 初始模式
-    });
-</script>
-<script>
-// 隐藏所有按钮
-function hideButtons() {
-document.getElementById("table").style.display = "none";
-document.getElementById("sphere").style.display = "none";
-document.getElementById("helix").style.display = "none";
-document.getElementById("grid").style.display = "none";
-}
 
-// 调用函数隐藏按钮
-hideButtons();
+        switchMode(modes[currentModeIndex]); // 初始模式
+        startAutoSwitching(); // 初始化自动切换延时
+    });
+
+    // 监听选择框的变化，更新 modes 数组
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', (event) => {
+            const mode = event.target.value;
+            if (event.target.checked) {
+                // 如果选中，则将该模式添加到 modes 数组
+                if (!modes.includes(mode)) {
+                    modes.push(mode);
+                }
+            } else {
+                // 如果取消选中，则从 modes 数组中移除该模式
+                modes = modes.filter(m => m !== mode);
+            }
+        });
+    });
+
+    // 检查并隐藏 container
+    function checkModesAndHideContainer() {
+        const container = document.getElementById('container');
+        if (modes.length <= 0) {
+            container.style.display = 'none'; // 如果 modes 数组为空或成员小于等于0，隐藏 container
+        } else {
+            container.style.display = 'block'; // 否则，显示 container
+        }
+    }
+
+    // 页面加载完成时检查
+    document.addEventListener("DOMContentLoaded", () => {
+        checkModesAndHideContainer();
+    });
+    // 监听 checkbox 的状态变化
+    document.getElementById("displayButton").addEventListener("change", function() {
+        if (this.checked) {
+            hideOrShow="inline-block"
+        } else {
+            hideOrShow="none"
+        }
+        hideOrShowButtons();
+    });
+    // 如果 modes 数组发生变化，重新检查
+    function updateModes(newModes) {
+        modes = newModes;
+        checkModesAndHideContainer(); // 更新后重新检查
+    }
+
+    // 隐藏所有按钮
+    function hideOrShowButtons() {
+        document.getElementById("table").style.display = hideOrShow;
+        document.getElementById("sphere").style.display = hideOrShow;
+        document.getElementById("helix").style.display = hideOrShow;
+        document.getElementById("grid").style.display = hideOrShow;
+    }
+
+
+    // 调用函数隐藏按钮
+    hideOrShowButtons();
 
 
 </script>

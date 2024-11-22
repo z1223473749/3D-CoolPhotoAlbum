@@ -30,3 +30,5 @@
 ```bash
 element.setAttribute('href', 'images/small/'+ (i/5 + 1)+'.jpg');
 ```
+### 4. 相册设置
+![](./images/README_Img/20241123010312.png)
