@@ -177,15 +177,10 @@
             width: 105px;
         }
 
-        body {
-            overflow: hidden;
-        }
 
-        body, html {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
+        body {
+
+            overflow: hidden;
         }
 
         #heart {
@@ -213,16 +208,7 @@
             top: -100px;
         }
 
-        作者：一筐芒果
-        链接：https:
 
-        /
-        /
-        juejin.cn /post/
-
-        6954550167307550757
-        来源：稀土掘金
-        著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
 
         @keyframes fadeOut {
             0% {
@@ -461,7 +447,7 @@
 
 
         const circle = document.createElement('div');
-        circle.classList.add('heart');
+        circle.className = 'heart';
         document.body.appendChild(circle);
 
         // 设置泡泡位置
