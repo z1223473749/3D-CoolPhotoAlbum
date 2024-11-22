@@ -3,26 +3,148 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-<title>美儿的3D相册</title>
-<meta name="keywords" content="美儿的3D相册,美儿的电子相册,美儿的动感相册,美儿的HTML5相册,美儿的CSS3相册" />
-<meta name="description" content="美儿的HTML5-3D相册，支持手势（单指滑动旋转角度，双指放大或缩小视图，三指滑动改变轴心）、支持鼠标左键拖动旋转角度、滚轮放大或缩小、按住鼠标右键拖动改变轴心、单击小图预览大图等功能！" />
+<title>QiuYa炫酷3D相册</title>
+<meta name="keywords" content="QiuYa炫酷3D相册,QiuYa的电子相册,QiuYa的动感相册,QiuYa的HTML5相册,QiuYa的CSS3相册" />
+<meta name="description" content="QiuYa的HTML5-3D相册，支持手势（单指滑动旋转角度，双指放大或缩小视图，三指滑动改变轴心）、支持鼠标左键拖动旋转角度、滚轮放大或缩小、按住鼠标右键拖动改变轴心、单击小图预览大图等功能！" />
 <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
 <!-- <link rel="stylesheet" href="css/bg.css" media="screen" type="text/css" />
 <link rel="stylesheet" href="css/3d.css" media="screen" type="text/css" />
 <link rel="stylesheet" href="css/lrtk.css" media="screen" type="text/css" /> -->
+
+    <style>
+
+
+        /* 背景容器样式 */
+        #background-container {
+            position: fixed;  /* 固定在视窗中 */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;  /* 使其处于其他内容的下方 */
+            background-size: cover;
+            background-position: center;
+            opacity: 1;
+        }
+        /* 示例：设置按钮初始样式 */
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 5px;
+        }
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-30px);
+            }
+            60% {
+                transform: translateY(-15px);
+            }
+        }
+
+        @keyframes flash {
+            0% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            25% {
+                transform: translateX(-5px);
+            }
+            50% {
+                transform: translateX(5px);
+            }
+            75% {
+                transform: translateX(-5px);
+            }
+        }
+
+        @keyframes wobble {
+            0% {
+                transform: rotate(0deg);
+            }
+            15% {
+                transform: rotate(10deg);
+            }
+            30% {
+                transform: rotate(-10deg);
+            }
+            45% {
+                transform: rotate(10deg);
+            }
+            60% {
+                transform: rotate(-10deg);
+            }
+            75% {
+                transform: rotate(5deg);
+            }
+            100% {
+                transform: rotate(0deg);
+            }
+        }
+        @keyframes glitch {
+            0% { transform: translate(0, 0); opacity: 1; }
+            20% { transform: translate(-2px, -2px); opacity: 0.8; }
+            40% { transform: translate(2px, 2px); opacity: 1; }
+            60% { transform: translate(-2px, 2px); opacity: 0.8; }
+            80% { transform: translate(2px, -2px); opacity: 1; }
+            100% { transform: translate(0, 0); opacity: 1; }
+        }
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+        @keyframes ripple {
+            0% { background-size: 100%; opacity: 1; }
+            50% { background-size: 120%; opacity: 0.5; }
+            100% { background-size: 100%; opacity: 1; }
+        }
+        @keyframes hypnotize {
+            0% { transform: rotate(0) scale(1); }
+            50% { transform: rotate(180deg) scale(1.2); }
+            100% { transform: rotate(360deg) scale(1); }
+        }
+    </style>
+
+
 </head>
 <body>
 
-<div id="mediaDiv">
-    <div class="on">
-        <!-- <audio loop="loop" preload="">
-            <source src="images/media/QingChengPiPa.mp3"></source>
-        </audio> -->
-    </div>
-</div>
+<div id="background-container"></div>
 
-<div id="container"></div>
-<div id="info"><b>美儿的HTML5-3D相册</b><br /><span style="color:#555;">支持手势、鼠标旋转角度、滚轮放大或缩小</span></div>
+
+
+
+
+
+<div id="container">
+
+
+</div>
 <div id="menu">
 <button id="table">单面</button>
 <button id="sphere" class="hover">球体</button>
@@ -38,6 +160,43 @@
 <!-- <script type="text/javascript" src="js/jquery.imgbox.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 <script type="text/javascript" src="js/media.js"></script> -->
+<script>
+    // 自动切换模式
+    const modes = ["table", "grid"]; // 模式按钮的 ID   "sphere", "helix",
+    let currentModeIndex = 0;
 
+    // 切换到指定模式的函数
+    function switchMode(mode) {
+        const button = document.getElementById(mode);
+        if (button) {
+            button.click(); // 模拟点击模式按钮
+        }
+    }
+
+    // 每隔 3 秒切换一次模式
+    setInterval(() => {
+        switchMode(modes[currentModeIndex]);
+        currentModeIndex = (currentModeIndex + 1) % modes.length; // 循环更新索引
+    }, 3000);
+
+    // 页面加载完成后初始化
+    document.addEventListener("DOMContentLoaded", () => {
+        switchMode(modes[currentModeIndex]); // 初始模式
+    });
+</script>
+<script>
+// 隐藏所有按钮
+function hideButtons() {
+document.getElementById("table").style.display = "none";
+document.getElementById("sphere").style.display = "none";
+document.getElementById("helix").style.display = "none";
+document.getElementById("grid").style.display = "none";
+}
+
+// 调用函数隐藏按钮
+hideButtons();
+
+
+</script>
 </body>
 </html>

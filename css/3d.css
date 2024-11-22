@@ -35,8 +35,8 @@ a {
 .element {
 	width: 120px;
 	height: 160px;
-	box-shadow: 0px 0px 12px rgba(0,255,255,0.5);
-	border: 1px solid rgba(127,255,255,0.25);
+	box-shadow: 0px 0px 12px rgba(255, 192, 203,0.5);
+	border: 1px solid rgba(255,192, 203,0.25);
 	text-align: center;
 	cursor: default;
 	background-size:100% auto;
@@ -48,8 +48,8 @@ a {
 }
 
 .element:hover {
-	box-shadow: 0px 0px 10px rgba(0,255,255,0.9);
-	border: 1px solid rgba(127,255,255,1);
+	box-shadow: 0px 0px 10px rgba(255, 192, 203,0.9);
+	border: 1px solid rgba(255, 192, 203,1);
 }
 
 .element .number {
@@ -57,7 +57,7 @@ a {
 	top: 20px;
 	right: 20px;
 	font-size: 12px;
-	color: rgba(127,255,255,0.75);
+	color: rgba(255, 192, 203,0.75);
 }
 
 .element .symbol {
@@ -65,10 +65,10 @@ a {
 	top: 40px;
 	left: 0px;
 	right: 0px;
-	font-size: 60px;
+	font-size: 50px;
 	font-weight: bold;
 	color: rgba(255,255,255,0.75);
-	text-shadow: 0 0 10px rgba(0,255,255,0.95);
+	text-shadow: 0 0 10px rgba(255, 192, 203,0.95);
 }
 
 .element .details {
@@ -77,24 +77,24 @@ a {
 	left: 0px;
 	right: 0px;
 	font-size: 12px;
-	color: rgba(127,255,255,0.75);
+	color: rgba(255, 192, 203,0.75);
 }
 
 button {
-	color: rgba(127,255,255,0.75);
+	color: rgba(255, 192, 203,0.75);
 	background: transparent;
-	outline: 1px solid rgba(127,255,255,0.75);
+	outline: 1px solid rgba(255, 192, 203,0.75);
 	border: 0px;
 	padding: 3px 10px;
 	cursor: pointer;
 }
 
 button:hover, button.hover {
-	background-color: rgba(0,255,255,0.5);
-	box-shadow: 0px 0px 10px rgba(0,255,255,0.9);
+	background-color: rgba(255, 192, 203,0.5);
+	box-shadow: 0px 0px 10px rgba(255, 192, 203,0.9);
 }
 
 button:active {
 	color: #000000;
-	background-color: rgba(0,255,255,0.75);
+	background-color: rgba(255, 192, 203,0.75);
 }

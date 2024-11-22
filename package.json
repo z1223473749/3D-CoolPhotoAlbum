@@ -1,5 +1,5 @@
 {
-  "name": "YeGirl",
+  "name": "QiuYa 3D_CoolPhotoAlbum",
   "version": "1.0.0",
   "description": "很酷的3D相册展示（源码可共享，但图片禁止转载，谢谢）",
   "main": "index.js",
@@ -11,15 +11,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/neusofts/YeGirl.git"
+    "url": "https://github.com/z1223473749/3D-CoolPhotoAlbum.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/neusofts/YeGirl/issues"
-  },
-  "homepage": "https://github.com/neusofts/YeGirl#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.19",
     "copy-webpack-plugin": "^4.5.2",
