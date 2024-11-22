@@ -26,4 +26,7 @@
 名称格式： 1.jpg 2.jpg 3.jpg 
 ![](./images/README_Img/20241122225447.png)
 
-可在 ./js/index.js
+可在 ./js/index.js 进行修改
+```bash
+element.setAttribute('href', 'images/small/'+ (i/5 + 1)+'.jpg');
+```
