@@ -2,6 +2,15 @@
 很酷的3D相册展示（源码可共享，但图片禁止转载，谢谢）<br>
 本项目是由某大佬制作的元素周期表修改而来的
 
+## 本项目由 QiuYa 二开
+### <span style="color: red;">囍囍</span> 新婚快乐！！！ <span style="color: red;">囍囍</span>
+### <span style="color: red;">囍囍</span> 新婚快乐！！！ <span style="color: red;">囍囍</span>
+### <span style="color: red;">囍囍</span> 新婚快乐！！！ <span style="color: red;">囍囍</span>
+### <span style="color: red;">囍囍</span> 新婚快乐！！！ <span style="color: red;">囍囍</span>
+
+
+
+
 ![相册预览GIF](./images/README_Img/output.gif)
 
 ### 1. 自动切换背景(带特效)

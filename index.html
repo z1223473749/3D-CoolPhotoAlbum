@@ -176,6 +176,65 @@
         .input-width {
             width: 105px;
         }
+
+        body {
+            overflow: hidden;
+        }
+
+        body, html {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        #heart {
+            height: 200px;
+            width: 200px;
+            /*border: 2px solid black;*/
+            position: relative;
+            transform: rotate(45deg);
+            background-color: red;
+        }
+
+        #heart:before, #heart:after {
+            content: '';
+            width: 200px;
+            height: 200px;
+            /*border: 2px solid black;*/
+            border-radius: 50%;
+            position: absolute;
+            left: -100px;
+            background-color: red;
+        }
+
+        #heart:after {
+            left: 0;
+            top: -100px;
+        }
+
+        作者：一筐芒果
+        链接：https:
+
+        /
+        /
+        juejin.cn /post/
+
+        6954550167307550757
+        来源：稀土掘金
+        著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+
+        @keyframes fadeOut {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+        }
+
     </style>
 
 
@@ -227,6 +286,19 @@
             </label>
 
         </form>
+        <br>
+        <p>爱心小尾巴</p>
+        <label>
+            <input type="checkbox" id="cursorTail" value="table"> 启用小尾巴
+        </label>
+        <div>
+            <label for="cursorX">偏移x：</label>
+            <input type="number" id="cursorX" value="10" min="1" step="1" class="input-width"/>
+            <label for="cursorY">偏移y：</label>
+            <input type="number" id="cursorY" value="10" min="1" step="1" class="input-width"/>
+            <label for="cursorP">绘制概率：</label>
+            <input type="number" id="cursorP" value="0.8" min="0.1" step="0.1" class="input-width"/>
+        </div>
 
 
         <img src="./images/imgbox/imgbox-close.png"
@@ -243,7 +315,7 @@
     <button id="grid">多面</button>
 
 </div>
-
+<div class="heart"></div>
 <script type="text/javascript" src="js/jquery.min.js"></script>
 <script type="text/javascript" src="js/three.min.js"></script>
 <script type="text/javascript" src="js/tween.min.js"></script>
@@ -258,6 +330,11 @@
     let modes = ["sphere", "helix", "table", "grid"]; // 模式按钮的 ID
     let intervalId = 0
     let hideOrShow = "none"
+    let cursorX = 10
+    let cursorY = 10
+    let cursorP = 0.8
+    let cursorTail = true
+
     function openModal() {
         document.getElementById('modal').style.display = 'flex';
         // 设置选择框状态
@@ -269,6 +346,8 @@
             }
         });
         document.getElementById("delay").value = delay;
+        document.getElementById("cursorTail").checked = cursorTail;
+
     }
 
     function closeModal() {
@@ -290,14 +369,14 @@
     document.getElementById("delay").addEventListener("input", startAutoSwitching);
 
     function startAutoSwitching() {
-        console.log("intervalId:",intervalId)
+        console.log("intervalId:", intervalId)
         delay = parseInt(document.getElementById("delay").value) || 3000;
         // 清除已有的定时器，防止重复执行
         if (intervalId) clearInterval(intervalId);
 
         // 设置新的 setInterval
         intervalId = setInterval(() => {
-            console.log("delay",delay)
+            console.log("delay", delay)
             updateModes(modes);
             if (modes.length > 0) {
                 switchMode(modes[currentModeIndex]);
@@ -344,14 +423,15 @@
         checkModesAndHideContainer();
     });
     // 监听 checkbox 的状态变化
-    document.getElementById("displayButton").addEventListener("change", function() {
+    document.getElementById("displayButton").addEventListener("change", function () {
         if (this.checked) {
-            hideOrShow="inline-block"
+            hideOrShow = "inline-block"
         } else {
-            hideOrShow="none"
+            hideOrShow = "none"
         }
         hideOrShowButtons();
     });
+
     // 如果 modes 数组发生变化，重新检查
     function updateModes(newModes) {
         modes = newModes;
@@ -367,6 +447,86 @@
     }
 
 
+    function createcircle(event) {
+        if(!cursorTail)return;
+
+
+        // 控制绘制概率，例如 50% 的概率绘制泡泡
+        if (Math.random() > cursorP) return;
+
+
+        // 生成随机的偏移量
+        const offsetX = Math.random() * cursorX * (Math.random() > 0.5 ? 1 : -1); // -5 到 5 的随机值
+        const offsetY = Math.random() * cursorY * (Math.random() > 0.5 ? 1 : -1); // -5 到 5 的随机值
+
+
+        const circle = document.createElement('div');
+        circle.classList.add('heart');
+        document.body.appendChild(circle);
+
+        // 设置泡泡位置
+        circle.style.left = event.clientX + 3 + offsetX + `px`;
+        circle.style.top = event.clientY + 18 + offsetY + `px`;
+        // 将爱心添加到页面
+        document.body.appendChild(circle);
+
+
+        circle.style.boxShadow = ` 0px 0px 8px 0px hsl(` + Math.random() * 360 + `, 90%, 70%) inset`
+        circle.style.boxShadow = `hsl(${Math.random() * 360}, 100%, 50%)`; // 随机颜色
+        // 设置泡泡的运动轨迹
+        const destinationX = event.clientX + (Math.random() - 0.5) * 10 * 75;
+        const destinationY = event.clientY + (Math.random() - 0.5) * 10 * 75;
+        const animation = circle.animate([
+            {
+                transform: `translate(0, 0)`,
+                opacity: 1
+            },
+            {
+                transform: `translate(` + destinationX - event.clientX + 10 + `px, ` + destinationY - event.clientY + 10 + `px)`,
+                opacity: 1
+            }
+        ], {
+            duration: Math.random() * 500, // 随机动画持续时间
+            easing: 'ease-out'
+        });
+
+
+        // 动画完成后移除泡泡
+        animation.onfinish = () => {
+            circle.remove();
+        };
+    }
+
+    document.addEventListener('mousemove', createcircle);
+
+
+    cursorTail
+
+
+    document.getElementById("cursorX").addEventListener("input", cursorXK);
+
+    function cursorXK() {
+        cursorX = parseInt(document.getElementById("cursorX").value) || 5;
+        console.log("cursorX:", cursorX)
+    }
+
+    document.getElementById("cursorY").addEventListener("input", cursorYK);
+
+    function cursorYK() {
+        cursorY = parseInt(document.getElementById("cursorY").value) || 5;
+        console.log("cursorY:", cursorY)
+    }
+
+    document.getElementById("cursorP").addEventListener("input", cursorPK);
+
+    function cursorPK() {
+        cursorP = parseFloat(document.getElementById("cursorP").value) || 0.8;
+        console.log("cursorP:", cursorP)
+    }
+    document.getElementById("cursorTail").addEventListener("change", function () {
+        cursorTail= this.checked
+
+    });
     // 调用函数隐藏按钮
     hideOrShowButtons();
 
