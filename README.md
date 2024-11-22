@@ -1,5 +1,5 @@
 # 3D-CoolPhotoAlbum
-很酷的3D相册展示（源码可共享，但图片禁止转载，谢谢）
+很酷的3D相册展示（源码可共享，但图片禁止转载，谢谢）<br>
 本项目是由某大佬制作的元素周期表修改而来的
 
 ![相册预览GIF](./images/README_Img/output.gif)
@@ -19,3 +19,11 @@
 ```bash
  hideButtons();
 ```
+
+### 3. 照片路径
+照片目录： ./images/small
+
+名称格式： 1.jpg 2.jpg 3.jpg 
+![](./images/README_Img/20241122225447.png)
+
+可在 ./js/index.js
