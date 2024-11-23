@@ -1,16 +1,17 @@
+var mediaObj;
+
+
 $(function () {
     'use strict';
 
     var $container = $('#mediaDiv');
     var $image = $container.children('div.on');
-    var mediaObj;
     var iTransform, cTransform;
 
     mediaObj = new Audio();
-    mediaObj.src = 'images/media/QingChengPiPa.mp3';
+    mediaObj.src = 'images/media/倾城琵琶 - 白雪.mp3';
     mediaObj.loop = true;
     mediaObj.autoplay = true;
-    // window.mediaObj = mediaObj;
 
     $(document).one('touchstart.play click.play', function () {
         mediaObj.play();
@@ -22,7 +23,7 @@ $(function () {
             mediaObj.play();
             mediaPlay();
         } else {
-            setTimeout(function(){
+            setTimeout(function () {
                 mediaObj.pause();
                 mediaPause();
             }, 0.1e3);
@@ -47,74 +48,45 @@ $(function () {
     }).bind('playing', function () {
         mediaPlay();
     });
-    
-    /* var isPlaying = false;
 
-    var container = document.querySelector('.wp');
-    var image = container.querySelector('img');
-
-    image.addEventListener('click', function bindEvent() {
-        isPlaying ? pause() : play();
-    });
-
-    function pause() {
-        isPlaying = false;
-        var iTransform = getComputedStyle(image).transform;
-        var cTransform = getComputedStyle(container).transform;
-        container.style.transform = cTransform === 'none'
-            ? iTransform
-            : iTransform.concat(' ', cTransform);
-        image.classList.remove('animate');
+    // Expose control functions globally
+    window.playMedia = function () {
+        if (mediaObj.paused) {
+            mediaObj.play();
+            mediaPlay();
+        }
     }
 
-    function play() {
-        isPlaying = true;
-        image.classList.add('animate');
-    } */
+    window.pauseMedia = function () {
+        if (!mediaObj.paused) {
+            mediaObj.pause();
+            mediaPause();
+        }
+    }
 
-    // $on.bind('click', function () {
-    //     if (mediaObj.paused || !$(this).hasClass('play')) {
-    //         mediaObj.play();
-    //         $(this)
-    //             .attr('title', '《倾城琵琶》 - 播放中')
-    //             .addClass('play')
-    //             .removeClass('paused')
-    //             ;
-    //     } else {
-    //         mediaObj.pause();
-    //         $(this)
-    //             .attr('title', '《倾城琵琶》 - 已暂停')
-    //             .addClass('paused')
-    //             .removeClass('play')
-    //             ;
-    //     }
+    const progressBar = document.getElementById('progressBar');
+    const volumeControl = document.getElementById('volume');
+    const songImage = document.getElementById('songImage');
 
-    //     // alert($(this).attr('class'));
-    // });
+// 播放音频时更新进度条
+    mediaObj.addEventListener('timeupdate', function () {
+        progressBar.value = (mediaObj.currentTime / mediaObj.duration) * 100;
 
-    // $(document).one('touchstart', function () {
-    //     mediaObj.play();
-    // });
+    });
 
-    // document.addEventListener('touchstart', handler, false);
-    // document.removeEventListener('touchstart', handler, false);
+// 允许进度条寻找音频
+    progressBar.addEventListener('input', function () {
+        mediaObj.currentTime = (progressBar.value / 100) * mediaObj.duration;
 
-    // if (mediaObj.paused) {
-    //     mediaObj.play();
-    //     $on.attr('title', '《倾城琵琶》 - 播放中');
-    // }
+    });
 
-    /* $(mediaObj).bind('pause ended', function () {
-        $on.addClass('paused');
-    }).bind('playing', function () {
-        $on.removeClass('paused').addClass('play');
-    }); */
+// 更新数量
+    volumeControl.addEventListener('input', function () {
+        mediaObj.volume = volumeControl.value / 100;
+    });
 
-    var random = function () {
-        // var str = Math.random().toString();
-        // return str.substring(str.length - 1);
-        return Math.ceil(Math.random() * 15);
-    };
 
-    $image.css('backgroundImage', 'url("images/media/on' + random() + '.JPG")');
 });
+
+
+

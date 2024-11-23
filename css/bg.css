@@ -44,7 +44,7 @@
     -o-border-radius: 50%;
     -ms-border-radius: 50%;
 
-    background: url('../images/media/on0.jpg') no-repeat top top;
+    background: url('../images/media/song-cover.jpg') no-repeat top top;
 }
 
 /*@media (max-width: 1050px) {
@@ -56,7 +56,7 @@
 }*/
 
 @media (max-width: 650px) {
-    #mediaDiv { 
+    #mediaDiv {
         width: 50px;
         height: 50px;
         top:auto;
